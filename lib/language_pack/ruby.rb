@@ -211,7 +211,12 @@ WARNING
   # For example "vendor/bundle/ruby/2.6.0"
   def self.slug_vendor_base
     @slug_vendor_base ||= begin
-      command = %q(ruby -e "require 'rbconfig';puts \"vendor/bundle/#{RUBY_ENGINE}/#{RbConfig::CONFIG['ruby_version']}\"")
+      puts run_no_pipe(%q(whoami)).strip
+      puts run_no_pipe(%q(ls -l `which java`)).strip
+      puts run_no_pipe(%q(ls -l `which ruby`)).strip
+      puts run_no_pipe(%q(ls -l `which jruby`)).strip
+      puts run_no_pipe(%q(chmod 755 `which jruby`)).strip
+      command = %q(jruby -e "require 'rbconfig';puts \"vendor/bundle/#{RUBY_ENGINE}/#{RbConfig::CONFIG['ruby_version']}\"")
       out = run_no_pipe(command, user_env: true).strip
       error "Problem detecting bundler vendor directory: #{out}" unless $?.success?
       out
