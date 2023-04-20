@@ -80,6 +80,29 @@ WARNING
   end
 
   def compile
+    require 'bundler/inline'
+    gemfile do
+      source "https://rubygems.org"
+
+      gem "whirly"
+    end
+
+    puts "=================="
+    require 'whirly'
+
+    puts "STDOUT is tty? #{STDOUT.tty?}"
+
+    print "RUNNING "
+
+    Whirly.start(spinner: "random_dots", non_tty: true) do
+      # do the heavy work here
+      sleep 5
+    end
+    puts "done"
+
+    raise "Done with experiment"
+
+
     # check for new app at the beginning of the compile
     new_app?
     Dir.chdir(build_path)
