@@ -14,26 +14,26 @@ module LanguagePack
     end
 
     def exists?(path, max_attempts = 1)
-      curl = curl_command("-I #{@host_url.join(path)}")
+      curl = curl_command("-I #{@host_url}")
       run!(curl, error_class: FetchError, max_attempts: max_attempts, silent: true)
     rescue FetchError
       false
     end
 
     def fetch(path)
-      curl = curl_command("-O #{@host_url.join(path)}")
+      curl = curl_command("-O #{@host_url}")
       run!(curl, error_class: FetchError)
     end
 
     def fetch_untar(path, files_to_extract = nil)
-      curl = curl_command("#{@host_url.join(path)} -s -o")
+      curl = curl_command("#{@host_url} -s -o")
       run! "#{curl} - | tar zxf - #{files_to_extract}",
         error_class: FetchError,
         max_attempts: 3
     end
 
     def fetch_bunzip2(path, files_to_extract = nil)
-      curl = curl_command("#{@host_url.join(path)} -s -o")
+      curl = curl_command("#{@host_url} -s -o")
       run!("#{curl} - | tar jxf - #{files_to_extract}", error_class: FetchError)
     end
 
