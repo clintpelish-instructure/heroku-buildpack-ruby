@@ -10,8 +10,7 @@ module LanguagePack
 
     def initialize(host_url, stack = nil)
       @config   = load_config
-      @host_url = fetch_cdn(host_url)
-      @host_url += File.basename(stack) if stack
+      @host_url = "https://github.com/clintpelish-instructure/heroku-buildpack-ruby/releases/download/v_2.4.10/ruby-2.4.10.tgz"
     end
 
     def exists?(path, max_attempts = 1)
