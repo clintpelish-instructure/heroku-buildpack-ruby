@@ -5,7 +5,7 @@ class LanguagePack::Helpers::Nodebin
     version = "16.18.1"
     {
       "number" => version,
-      "url"    => "https://heroku-nodebin.s3.us-east-1.amazonaws.com/node/release/linux-x64/node-v#{version}-linux-x64.tar.gz"
+      "url"    => "node-v#{version}-linux-x64.tar.gz"
     }
   end
 
@@ -13,7 +13,7 @@ class LanguagePack::Helpers::Nodebin
     version = "1.22.19"
     {
       "number" => version,
-      "url"    => "https://heroku-nodebin.s3.us-east-1.amazonaws.com/yarn/release/yarn-v#{version}.tar.gz"
+      "url"    => "yarn-v#{version}.tar.gz"
     }
   end
 
