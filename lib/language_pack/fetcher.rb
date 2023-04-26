@@ -14,10 +14,11 @@ module LanguagePack
       puts "This is the yaml config:"
       puts @config.to_json
       puts "-----------------"
-      @host_url = "https://github.com/clintpelish-instructure/heroku-buildpack-ruby/releases/download/v_2.4.10"
+      url = "https://github.com/clintpelish-instructure/heroku-buildpack-ruby/releases/download/v_2.4.10"
+      @host_url = Pathname.new(url)
       puts "-----------------"
       puts "This is @host_url:"
-      puts @host_url
+      puts @host_url.to_json
       puts "-----------------"
     end
 
