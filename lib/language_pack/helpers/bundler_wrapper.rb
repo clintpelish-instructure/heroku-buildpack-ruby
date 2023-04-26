@@ -76,7 +76,7 @@ class LanguagePack::Helpers::BundlerWrapper
     detect_bundler_version_and_dir_name!
 
     @bundler_path         = options[:bundler_path] || @bundler_tmp.join(dir_name)
-    @bundler_tar          = "https://github.com/clintpelish-instructure/heroku-buildpack-ruby/releases/download/v_2.4.10/bundler-ubuntu-1.17.3.tgz"
+    @bundler_tar          = options[:bundler_tar]  || "#{dir_name}.tgz"
     @orig_bundle_gemfile  = ENV['BUNDLE_GEMFILE']
     @path                 = Pathname.new("#{@bundler_path}/gems/#{dir_name}/lib")
   end

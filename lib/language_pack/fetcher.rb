@@ -10,30 +10,54 @@ module LanguagePack
 
     def initialize(host_url, stack = nil)
       @config   = load_config
-      @host_url = "https://github.com/clintpelish-instructure/heroku-buildpack-ruby/releases/download/v_2.4.10/ruby-2.4.10.tgz"
+      puts "-----------------"
+      puts "This is the yaml config:"
+      puts @config.to_json
+      puts "-----------------"
+      @host_url = "https://github.com/clintpelish-instructure/heroku-buildpack-ruby/releases/download/v_2.4.10"
+      puts "-----------------"
+      puts "This is @host_url:"
+      puts @host_url
+      puts "-----------------"
     end
 
     def exists?(path, max_attempts = 1)
-      curl = curl_command("-I #{@host_url}")
+      curl = curl_command("-I #{@host_url.join(path)}")
+      puts "-----------------"
+      puts "This is the curl command in exists?:"
+      puts curl
+      puts "-----------------"
       run!(curl, error_class: FetchError, max_attempts: max_attempts, silent: true)
     rescue FetchError
       false
     end
 
     def fetch(path)
-      curl = curl_command("-O #{@host_url}")
+      curl = curl_command("-O #{@host_url.join(path)}")
+      puts "-----------------"
+      puts "This is the curl command in fetch:"
+      puts curl
+      puts "-----------------"
       run!(curl, error_class: FetchError)
     end
 
     def fetch_untar(path, files_to_extract = nil)
-      curl = curl_command("#{@host_url} -s -o")
+      curl = curl_command("#{@host_url.join(path)} -s -o")
+      puts "-----------------"
+      puts "This is the curl command in fetch_untar:"
+      puts curl
+      puts "-----------------"
       run! "#{curl} - | tar zxf - #{files_to_extract}",
         error_class: FetchError,
         max_attempts: 3
     end
 
     def fetch_bunzip2(path, files_to_extract = nil)
-      curl = curl_command("#{@host_url} -s -o")
+      curl = curl_command("#{@host_url.join(path)} -s -o")
+      puts "-----------------"
+      puts "This is the curl command in bunzip2:"
+      puts curl
+      puts "-----------------"
       run!("#{curl} - | tar jxf - #{files_to_extract}", error_class: FetchError)
     end
 
@@ -54,9 +78,5 @@ module LanguagePack
       YAML.load_file(CDN_YAML_FILE) || {}
     end
 
-    def fetch_cdn(url)
-      url = @config[url] || url
-      Pathname.new(url)
-    end
   end
 end
