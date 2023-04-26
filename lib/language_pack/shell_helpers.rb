@@ -89,10 +89,6 @@ module LanguagePack
       error_class  = options[:error_class] || StandardError
       silent       = options.key?(:silent) ? options[:silent] : false
       max_attempts.times do |attempt_number|
-        puts "--------"
-        puts command
-        puts options.to_json
-        puts "--------"
         result = run(command, options)
         if $?.success?
           return result
